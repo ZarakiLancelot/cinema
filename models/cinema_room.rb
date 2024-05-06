@@ -18,6 +18,9 @@ class CinemaRoom
     available = "\e[32m"      ## GREEN COLOR
     reset = "\e[0m"           ## RESET COLOR
 
+    available_seats_count = 0
+    reserved_seats = 0
+
     puts "Available seats in #{@name} room:"
     puts "="*100
     puts '============================================== SCREEN =============================================='
@@ -30,8 +33,10 @@ class CinemaRoom
         # print "\t #{row_label}-#{subindex + 1} #{seat ? 'X' : 'L'}"
         if seat == 'X'
           print "#{not_available}\t #{row_label}-#{subindex + 1} X"
+          reserved_seats += 1
         else
           print "#{available}\t #{row_label}-#{subindex + 1} L"
+          available_seats_count += 1
         end
       end
       
@@ -39,10 +44,23 @@ class CinemaRoom
     end
     puts "\n"
 
-    print "#{reset} Do you wanto to reserve a seat? (Y/N): "
-    answer = gets.chomp.upcase
+    if available_seats_count > 0
+      puts "#{reset} There are #{available_seats_count} available seats in #{@name} room."
+      
+      if reserved_seats.zero?
+        print "#{reset} Do you wanto to reserve a seat? (Y/N): "
+      else
+        print "#{reset} Do you wanto to reserve another seat? (Y/N): "
+      end
+      answer = gets.chomp.upcase
 
-    reserve_seat if answer == 'Y'
+      if answer == 'Y'
+        reserve_seat
+        show_seats
+      end
+    else
+      puts "#{reset} There are no available seats in #{@name} room."
+    end
   end
 
   def reserve_seat
