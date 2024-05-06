@@ -1,5 +1,5 @@
 class IMAXRoom < CinemaRoom
   def initialize
-    super("IMAX", 20, 15)
+    super("IMAX", 15, 12)
   end
 end

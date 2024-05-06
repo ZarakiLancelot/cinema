@@ -33,7 +33,11 @@ class Main
           puts "Invalid option!"
         end
       when 4
-        puts "Thank you for use our reservation system, see you soon!"
+        if vip_room.reservations? || imax_room.reservations? || twod_room.reservations?
+          puts "Thank you for using our reservation system, enjoy your movie!"
+        else
+          puts "Thank you for using our reservation system, see you soon!"
+        end
         exit
       else
         puts "Invalid option, please choose a valid option!"
@@ -42,9 +46,10 @@ class Main
   end
 
   def show_main_menu
-    puts "Welcome to CinemaBistro!"
-    puts "="*30
-    puts "1. Show available seats"
+    puts "\n\n"
+    puts "===================================== Welcome to CinemaBistro! ====================================="
+    puts "="*100
+    puts "1. Show Rooms"
     puts "4. Exit"
     print "Please, choose an option: "
   end
